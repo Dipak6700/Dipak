@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Carousel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center h-screen bg-gray-100">
+
+  <div class="relative w-96 h-64">
+    <!-- Photos -->
+    <div id="carousel" class="w-full h-full">
+      <img src="https://via.placeholder.com/400x300.png?text=Photo+1" class="w-full h-full object-cover hidden" alt="Photo 1">
+      <img src="https://via.placeholder.com/400x300.png?text=Photo+2" class="w-full h-full object-cover hidden" alt="Photo 2">
+      <img src="https://via.placeholder.com/400x300.png?text=Photo+3" class="w-full h-full object-cover hidden" alt="Photo 3">
+    </div>
+
+    <!-- Controls -->
+    <div class="absolute bottom-0 left-0 right-0 flex justify-center space-x-4 p-4">
+      <button id="prev" class="bg-gray-800 text-white px-4 py-2 rounded">Previous</button>
+      <button id="next" class="bg-gray-800 text-white px-4 py-2 rounded">Next</button>
+    </div>
+  </div>
+
+  <script>
+    const photos = document.querySelectorAll('#carousel img');
+    let currentPhotoIndex = 0;
+
+    function showPhoto(index) {
+      photos.forEach((photo, i) => {
+        photo.classList.add('hidden');
+        if (i === index) {
+          photo.classList.remove('hidden');
+        }
+      });
+    }
+
+    document.getElementById('next').addEventListener('click', () => {
+      currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+      showPhoto(currentPhotoIndex);
+    });
+
+    document.getElementById('prev').addEventListener('click', () => {
+      currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+      showPhoto(currentPhotoIndex);
+    });
+
+    // Initialize the first photo as visible
+    showPhoto(currentPhotoIndex);
+  </script>
+
+</body>
+</html>
